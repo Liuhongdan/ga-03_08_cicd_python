@@ -57,7 +57,7 @@ jobs:
         id: meta
         uses: docker/metadata-action@v5
         with:
-          images: ghcr.io/${{ github.IMAGE_NAME}}
+          images: ghcr.io/${{ env.IMAGE_NAME}}
           tags: |
             type=sha,format=short,prefix=,suffix=
             type=sha,format=long,prefix=,suffix=
@@ -92,7 +92,7 @@ jobs:
           password: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Pull the image from GitHub Container Registry
-        run: docker pull ghcr.io/${{ github.IMAGE_NAME}}:${{ github.sha }}
+        run: docker pull ghcr.io/${{ env.IMAGE_NAME}}:${{ github.sha }}
 
       - name: Run the Image
-        run: docker run --rm ghcr.io/${{ github.IMAGE_NAME}}:${{ github.sha }} | grep -i hello || exit 1
+        run: docker run --rm ghcr.io/${{ env.IMAGE_NAME}}:${{ github.sha }} | grep -i hello || exit 1
